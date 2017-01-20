@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function setupFirewall() {
-    read -p "Setup Firewall? (y or n): " continue
+    read -r -p "Setup Firewall? (y or n): " continue
     if [[ $continue = "y" ]]; then
         echo "Firewall currently includes: "
         ufw app list
@@ -12,13 +12,13 @@ function setupFirewall() {
         return 1
     fi
 
-    read -p "Open HTTP/HTTPS ports? (y or n): " http
+    read -r -p "Open HTTP/HTTPS ports? (y or n): " http
     if [[ $http = "y" ]]; then
         ufw allow 80/tcp
         ufw allow 443/tcp
     fi
 
-    read -p "Open SMPT Email ports? (y or n): " smpt
+    read -r -p "Open SMPT Email ports? (y or n): " smpt
     if [[ $smpt = "y" ]]; then
         ufw allow 25/tcp
     fi
@@ -26,7 +26,7 @@ function setupFirewall() {
     echo "Firewall will now include:"
     ufw show added
 
-    read -p "Save and Enable Firewall changes? (y or n): " save
+    read -r -p "Save and Enable Firewall changes? (y or n): " save
     if [[ $save = "y" ]]; then
         echo "Firewall changes HAVE been made: "
         ufw enable

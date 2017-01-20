@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function setupNode() {
-    read -p "Setup Node? (y or n): " continue
+    read -r -p "Setup Node? (y or n): " continue
     if [[ $continue != "y" ]]; then
         return 1
     fi
