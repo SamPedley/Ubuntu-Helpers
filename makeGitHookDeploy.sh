@@ -17,8 +17,7 @@ touch "${HOOK}"
 	echo "#!/bin/bash"
 	echo "unset GIT_INDEX_FILE"
 	echo "git --work-tree=/var/www/${NAME}/public --git-dir=~/projects/${NAME}/.git checkout -f"
-	>> "${HOOK}"
-}
+} >> "${HOOK}"
 
 # Allow the commit hook to write 
 chmod +x "${HOOK}"
