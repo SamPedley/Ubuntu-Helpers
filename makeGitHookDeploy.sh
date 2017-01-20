@@ -1,23 +1,24 @@
 #!/bin/bash
 
-read -p "What's your projects name? " name
+read -p -r "What's your projects name? " NAME
 #Create the right folders
-mkdir -p ~/projects/$name
-mkdir -p /var/www/$name/public
-cd ~/projects/$name
+mkdir -p ~/projects/"${NAME}"
+mkdir -p /var/www/"${NAME}"/public
+cd ~/projects/"${NAME}" || exit
 
 #Create an empty git folder
 git init
 
+HOOK=~/projects/"${NAME}"/.git/hooks/post-commit
 #create the post-commit hook
-touch ~/projects/$name/.git/hooks/post-commit
-echo "#!/bin/bash" >> ~/projects/$name/.git/hooks/post-commit
-echo "unset GIT_INDEX_FILE" >> ~/projects/$name/.git/hooks/post-commit
-echo "git --work-tree=/var/www/${name}/public --git-dir=~/projects/${name}/.git checkout -f" >> ~/projects/$name/.git/hooks/post-commit
+touch "${HOOK}"
+echo "#!/bin/bash" >> "${HOOK}"
+echo "unset GIT_INDEX_FILE" >> "${HOOK}"
+echo "git --work-tree=/var/www/${NAME}/public --git-dir=~/projects/${NAME}/.git checkout -f" >> "${HOOK}"
 
 # Allow the commit hook to write 
-chmod +x ~/projects/$name/.git/hooks/post-commit
+chmod +x "${HOOK}"
 echo "-----------------------------"
 echo "Push to this url :"
-ExternialIp=`dig +short myip.opendns.com @resolver1.opendns.com`
-echo "${USER}@${ExternialIp}:projects/${name}"
+IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+echo "${USER}@${IP}:projects/${NAME}"

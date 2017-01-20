@@ -9,7 +9,9 @@ function getCurrentDir() {
 }
 
 function includeDependencies() {
+	# shellcheck source=src/makeGitHooks.sh
     source "${current_dir}/setupHelpers/firewall.sh"
+    # shellcheck source=src/setupHelpers/node.sh
     source "${current_dir}/setupHelpers/node.sh"
 }
 
