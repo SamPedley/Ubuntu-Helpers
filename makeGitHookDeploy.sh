@@ -12,9 +12,13 @@ git init
 HOOK=~/projects/"${NAME}"/.git/hooks/post-commit
 #create the post-commit hook
 touch "${HOOK}"
-echo "#!/bin/bash" >> "${HOOK}"
-echo "unset GIT_INDEX_FILE" >> "${HOOK}"
-echo "git --work-tree=/var/www/${NAME}/public --git-dir=~/projects/${NAME}/.git checkout -f" >> "${HOOK}"
+
+{
+	echo "#!/bin/bash"
+	echo "unset GIT_INDEX_FILE"
+	echo "git --work-tree=/var/www/${NAME}/public --git-dir=~/projects/${NAME}/.git checkout -f"
+	>> "${HOOK}"
+}
 
 # Allow the commit hook to write 
 chmod +x "${HOOK}"
